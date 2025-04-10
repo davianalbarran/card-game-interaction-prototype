@@ -1,6 +1,7 @@
 import random
+from component import Component
 from player import Player
-from card import Card, Effect, Trigger
+from card import Card, Effect, Lifetime, Trigger
 from enum import Enum, auto
 
 class GameState(Enum):
@@ -74,23 +75,23 @@ def playCard(cardIdx: int, player: int):
         card = player2.playCard(cardIdx)
         activeCards.append(card)
 
-def trigger(trigger: Trigger):
-    # TODO - optimize algorithm below
+def trigger(trigger: Trigger, component: Component):
     for card in activeCards:
         for effect in card.effects:
             if effect.trigger is trigger:
-                pass
+                effect.callback(component)
 
-def checkLifetimes():
+def checkLifetimes(lifetime: Lifetime):
     for card in activeCards:
-        pass
+        if card.lifetime is lifetime:
+            activeCards.remove(card)
+        
 
 def run():
     setup()
 
     while True:
-        checkTriggers()
-        checkLifetimes()
+        checkLifetimes(Lifetime.NEXT_ROUND_START)
         printInstructions()
         key = readInput()
 

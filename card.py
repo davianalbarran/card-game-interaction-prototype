@@ -5,6 +5,7 @@ from component import Component
 class Lifetime(Enum):
     INDEFINITE = auto()
     ROUND_END = auto()
+    NEXT_ROUND_START = auto()
     PLAYER_TURN_END = auto()
     OPPONENT_TURN_END = auto()
 

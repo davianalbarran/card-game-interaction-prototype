@@ -1,5 +1,7 @@
+from component import Component
+
 class Event:
-    def __init__(self, event_type, data = None):
+    def __init__(self, event_type, data: Component):
         self.type = event_type
         self.data = data
 
